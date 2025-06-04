@@ -1,64 +1,26 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0",xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance",xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+plugins {
+    id 'java'
+}
 
-    <modelVersion>4.0.0</modelVersion>
+group = 'com.example'
+version = '1.0-SNAPSHOT'
 
-    <groupId>com.example</groupId>
-    <artifactId>sample-app</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+sourceCompatibility = '17'
+targetCompatibility = '17'
 
-    <name>Sample Java App</name>
+repositories {
+    mavenCentral()
+}
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source> <!-- your Java version -->
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>4.13.2</junit.version>
-    </properties>
+dependencies {
+    implementation 'com.google.guava:guava:23.0'
 
-    <dependencies>
-        <!-- JUnit 4 dependency -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
+    testImplementation 'junit:junit:4.13.2'
+}
 
-        <!-- Example: Guava (from your original Gradle file) -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>23.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-
-            <!-- Compiler plugin to set Java version -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
-
-            <!-- Surefire plugin to run tests -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M7</version>
-                <configuration>
-                    <!-- Optional: enable test output logging -->
-                    <printSummary>true</printSummary>
-                    <redirectTestOutputToFile>false</redirectTestOutputToFile>
-                </configuration>
-            </plugin>
-
-        </plugins>
-    </build>
-
-</project>
+test {
+    useJUnit()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
