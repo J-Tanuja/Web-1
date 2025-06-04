@@ -13,14 +13,21 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.google.guava:guava:23.0'
+    // JUnit 4 includes support for JUnit 3 tests too
+    testImplementation 'junit:junit:4.12'
 
-    testImplementation 'junit:junit:4.13.2'
+    // Example runtime dependency
+    implementation 'com.google.guava:guava:23.0'
 }
 
 test {
+    // Use JUnit test runner (supports JUnit 3 and 4)
     useJUnit()
+
+    // Show detailed test logging in console
     testLogging {
         events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showStandardStreams = true
     }
 }
