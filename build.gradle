@@ -13,21 +13,36 @@ repositories {
 }
 
 dependencies {
-    // JUnit 4 includes support for JUnit 3 tests too
+    // JUnit 4, which supports JUnit 3 tests as well
     testImplementation 'junit:junit:4.12'
 
-    // Example runtime dependency
+    // Your runtime dependency
     implementation 'com.google.guava:guava:23.0'
 }
 
 test {
-    // Use JUnit test runner (supports JUnit 3 and 4)
     useJUnit()
 
-    // Show detailed test logging in console
+    // Explicitly include test classes matching *Test.class
+    include '**/*Test.class'
+
+    // Enable detailed test logging
     testLogging {
         events "passed", "skipped", "failed"
         exceptionFormat "full"
         showStandardStreams = true
+    }
+
+    // Print test report file names after tests run (debug)
+    doLast {
+        println "Test report files:"
+        def reportsDir = file("build/test-results/test")
+        if (reportsDir.exists()) {
+            reportsDir.listFiles()?.each { file ->
+                println file.name
+            }
+        } else {
+            println "No test reports found!"
+        }
     }
 }
