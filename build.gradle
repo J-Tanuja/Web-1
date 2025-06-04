@@ -26,6 +26,13 @@ dependencies {
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }
+plugins {
+    id 'java'
+}
+
+test {
+    useJUnitPlatform() // only needed for JUnit 5
+}
 
 // Define the main class for the application
 mainClassName = 'App'
